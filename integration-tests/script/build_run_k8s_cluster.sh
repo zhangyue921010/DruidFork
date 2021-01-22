@@ -18,6 +18,7 @@ set -e
 
 if ($BUILD_DRUID_CLSUTER); then
 
+  echo "---------------------------------------------------------$DRUID_HOME_DIR--------------------------------------------------------------------"
   export DRUID_HOME=$(dirname `pwd`)
   minikubeFile="/usr/local/bin/minikube*"
   minikubeFile2="/usr/local/bin/minikube"
