@@ -352,7 +352,7 @@ public abstract class AbstractStreamIndexingTest extends AbstractIndexerTest
               generatedTestConfig.getStreamName(),
               streamEventWriter,
               secondsToGenerateRemaining,
-              FIRST_EVENT_TIME.plusSeconds(seconToGenerateFirstRound)
+              FIRST_EVENT_TIME.plusSeconds(secondsToGenerateFirstRound)
       );
 
       // Verify that supervisor can catch up with the stream
