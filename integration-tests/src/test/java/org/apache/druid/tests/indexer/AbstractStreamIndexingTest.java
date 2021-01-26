@@ -337,21 +337,24 @@ public abstract class AbstractStreamIndexingTest extends AbstractIndexerTest
               30,
               "Waiting for supervisor to be healthy"
       );
+
+      // wait for autoScaling task numbers from 1 to 2.
+      ITRetryUtil.retryUntil(
+              () -> indexer.getRunningTasks().size() == 2,
+              true,
+              10000,
+              30,
+              "Waiting for task scale"
+      );
+      
       // Start generating remainning half of the data
       numWritten += streamGenerator.run(
               generatedTestConfig.getStreamName(),
               streamEventWriter,
               secondsToGenerateRemaining,
-              FIRST_EVENT_TIME.plusSeconds(secondsToGenerateFirstRound)
+              FIRST_EVENT_TIME.plusSeconds(seconToGenerateFirstRound)
       );
-      // wait for autoScaling task numbers from 1 to 2.
-      ITRetryUtil.retryUntil(
-          () -> indexer.getRunningTasks().size() == 2,
-              true,
-              10000,
-              50,
-              "Waiting for supervisor to be healthy"
-      );
+
       // Verify that supervisor can catch up with the stream
       verifyIngestedData(generatedTestConfig, numWritten);
     }
