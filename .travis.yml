@@ -52,11 +52,11 @@ stages:
 jobs:
   include:
     - &integration_batch_index
-      name: "(Compile=openjdk8, Run=openjdk8) batch index integration test"
+      name: "(Compile=openjdk8, Run=openjdk8) batch index integration test indexer"
       jdk: openjdk8
       services: &integration_test_services
         - docker
-      env: TESTNG_GROUPS='-Dgroups=kafka-index' JVM_RUNTIME='-Djvm.runtime=8' USE_INDEXER='middleManager'
+      env: TESTNG_GROUPS='-Dgroups=kafka-index' JVM_RUNTIME='-Djvm.runtime=8' USE_INDEXER='indexer'
       script: &run_integration_test
         - ${MVN} verify -pl integration-tests -P integration-tests ${TESTNG_GROUPS} ${JVM_RUNTIME} -Dit.indexer=${USE_INDEXER} ${MAVEN_SKIP}
       after_failure: &integration_test_diags
